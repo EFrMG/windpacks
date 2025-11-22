@@ -274,3 +274,8 @@ svg:not([fill]) {
   outline: 1px solid hsla(0, 0%, 50%, 0.75);
   outline-offset: 2px;
 }
+
+::selection {
+  background-color: var(--text-clr-dim);
+  color: var(--primary-clr-2);
+}

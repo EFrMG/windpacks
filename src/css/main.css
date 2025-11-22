@@ -122,6 +122,7 @@ main h1 {
   display: flex;
   gap: var(--spacing-m);
   align-items: center;
+  user-select: none;
 }
 
 #nav-bar .nav-link {
@@ -277,6 +278,7 @@ section h2 {
   border-radius: var(--border-radius);
   text-shadow: 0 1px 2px hsla(0, 0%, 0%, 0.3);
   will-change: scale, transform, filter;
+  user-select: none;
 }
 
 .price span {
@@ -567,7 +569,7 @@ section h2 {
 }
 
 @media only screen and (max-width: 395px) {
-  :where(:target) {
+  :target {
     scroll-margin-block: 6.5rlh;
   }
 
