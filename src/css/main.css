@@ -8,14 +8,12 @@ html {
 
   --scroll-offset: 0px;
 
-  background:
-    radial-gradient(var(--s) at 100% var(--_g)) 0 var(--scroll-offset),
+  background: radial-gradient(var(--s) at 100% var(--_g)) 0 var(--scroll-offset),
     radial-gradient(calc(var(--s) / 4) at 50% calc(100% / 3), var(--_c))
       var(--s) calc(var(--scroll-offset)),
     radial-gradient(var(--s) at 0% var(--_g)) 0
       calc(3 * var(--s) + var(--scroll-offset)) var(--c2);
-  background-size:
-    calc(2 * var(--s)) calc(9 * var(--s) / 4),
+  background-size: calc(2 * var(--s)) calc(9 * var(--s) / 4),
     calc(2 * var(--s)) calc(3 * var(--s) / 4);
   background-attachment: fixed;
 }
@@ -451,6 +449,15 @@ section h2 {
     color-mix(in hsl, var(--primary-clr-3) 55%, transparent 45%);
 }
 
+.button-group {
+  display: flex;
+  gap: var(--spacing-l);
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin-inline: var(--spacing-m);
+}
+
 #submit {
   padding: 0.575rem 2.125rem;
   font-size: var(--fz-ms);
@@ -463,7 +470,7 @@ section h2 {
   );
   color: var(--bkg-clr);
   transition: var(--trs-m);
-  box-shadow: var(--shadow-1);
+  box-shadow: var(--shadow-3);
 }
 
 #submit:hover {
@@ -472,15 +479,55 @@ section h2 {
     var(--primary-clr-2),
     var(--primary-clr-1)
   );
-  box-shadow:
-    0 -1px 2px 0 hsl(var(--shadow-color) / calc(var(--shadow-strength) + 2%)),
-    0 2px 1px -2px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 3%)),
-    0 5px 5px -2px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 3%)),
-    0 5px 15px -1px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 4%)),
-    0 17px 20px -1px
-      hsl(var(--shadow-color) / calc(var(--shadow-strength) + 5%)),
-    0 37px 35px -1px
-      hsl(var(--shadow-color) / calc(var(--shadow-strength) + 7%));
+}
+
+/* This would be the legitimate submit button */
+#glitch-submit {
+  padding: 0.575rem 1.5rem;
+  font-size: var(--fz-ms);
+  border: 2px dashed var(--accent-clr-3);
+  border-radius: var(--border-radius);
+  background-color: transparent;
+  color: var(--accent-clr-submit);
+  transition: background-color var(--trs-m), color var(--trs-m);
+
+  &:focus {
+    outline: none;
+  }
+}
+
+#glitch-submit:not(:hover) span:not(.question-mark) {
+  animation: glitch-opacity 3000ms infinite;
+}
+
+#glitch-submit:not(:hover) span:nth-child(odd) {
+  animation-delay: 300ms;
+  animation-duration: 2300ms;
+}
+
+#glitch-submit:not(:hover) span:nth-child(even) {
+  animation-delay: 2700ms;
+  animation-duration: 1500ms;
+}
+
+#glitch-submit:not(:hover) span:nth-child(3n) {
+  animation-delay: 1500ms;
+  animation-duration: 1500ms;
+}
+
+#glitch-submit .question-mark {
+  opacity: 0;
+  transition: opacity var(--trs-m);
+}
+
+#glitch-submit:hover {
+  background-color: var(--accent-clr-2);
+  color: var(--bkg-clr);
+  border-style: solid;
+}
+
+#glitch-submit:hover .question-mark {
+  opacity: 1;
 }
 
 .disclaimer {
@@ -496,6 +543,70 @@ section h2 {
     font-style: normal;
     vertical-align: top;
   }
+}
+
+#joke-modal {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  padding: 0;
+  border: none;
+  background: transparent;
+  overflow: visible;
+  z-index: 100;
+}
+
+#joke-modal::backdrop {
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(3px);
+  opacity: 0;
+  transition: opacity var(--trs-m);
+}
+
+#joke-modal[open] {
+  animation: complex-entrance 1850ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+#joke-modal[open]::backdrop {
+  opacity: 1;
+
+  @starting-style {
+    opacity: 0;
+  }
+}
+
+#joke-modal[open] .modal-content {
+  box-shadow: var(--shadow-2);
+
+  @starting-style {
+    box-shadow: none;
+  }
+}
+
+.modal-content {
+  max-width: 90vw;
+  width: 25rem;
+  padding: var(--spacing-l);
+  background-color: var(--bkg-clr);
+  border: 2px solid var(--primary-clr-1);
+  border-radius: var(--border-radius);
+  box-shadow: none;
+  text-align: center;
+  transition: box-shadow 1850ms cubic-bezier(0.34, 1.56, 0.64, 1) 150ms;
+}
+
+.modal-content p {
+  font-size: var(--fz-m);
+  color: var(--text-clr);
+}
+
+#close-modal {
+  padding: 0.5rem 1rem;
+  background: var(--primary-clr-1);
+  color: var(--bkg-clr);
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: var(--fz-m);
 }
 
 @media only screen and (max-width: 768px) {
@@ -628,5 +739,65 @@ section h2 {
   to {
     opacity: 1;
     background-position: center 0%;
+  }
+}
+
+@keyframes glitch-opacity {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  5% {
+    opacity: 0.5;
+  }
+  10% {
+    opacity: 1;
+  }
+  15% {
+    opacity: 0.45;
+  }
+  20% {
+    opacity: 1;
+  }
+  45% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 0.65;
+  }
+  55% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 0.9;
+  }
+  85% {
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 1;
+  }
+}
+
+@keyframes complex-entrance {
+  0% {
+    transform: translateY(60vh) scale(0.5) rotateX(0);
+    opacity: 0;
+  }
+  55% {
+    transform: translateY(-1.5vh) scale(1.01) rotateX(0);
+    opacity: 1;
+  }
+  70% {
+    transform: translateY(1vh) scale(0.98) rotate(-1.5deg) rotateX(0);
+  }
+  75% {
+    transform: translateY(0.5vh) scale(0.97) rotate(1deg) rotateX(0);
+  }
+  90% {
+    transform: translateY(-0.5vh) scale(1.02) rotate(0.5deg) rotateX(5deg);
+  }
+  100% {
+    transform: translateY(0) scale(1) rotate(0) rotateX(0);
   }
 }

@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -163,8 +163,8 @@
 
           <div class="testimonial">
             <blockquote>
-              "The Mountain Fresh™ blend transported me to the Alps without
-              even needing to leave my living room."
+              "The Mountain Fresh™ blend transported me to the Alps without even
+              needing to leave my living room."
             </blockquote>
             <cite>&ndash; Michael R., Air Enthusiast</cite>
           </div>
@@ -225,12 +225,28 @@
               type="email"
               placeholder="this@will.validate"
               autocomplete="email"
+              required
             />
-            <a id="submit" href="https://github.com/efrmg" target="_blank"
-              >Visit Portfolio</a
-            >
+            <div class="button-group">
+              <a id="submit" href="https://github.com/efrmg" target="_blank"
+                >Visit Portfolio</a
+              >
+              <button id="glitch-submit" type="submit">
+                <span>S</span><span>u</span><span>b</span><span>m</span
+                ><span>i</span><span>t</span> <span>f</span><span>o</span
+                ><span>r</span><span>m</span
+                ><span class="question-mark">?</span>
+              </button>
+            </div>
           </div>
         </form>
+
+        <dialog id="joke-modal">
+          <div class="modal-content">
+            <p>Your data has been sent nowhere in particular . . . Perhaps.</p>
+            <button id="close-modal" autofocus>Close</button>
+          </div>
+        </dialog>
 
         <p class="disclaimer">
           <b aria-hidden="true">*</b> We respect your personal space as much as

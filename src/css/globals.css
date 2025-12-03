@@ -28,6 +28,7 @@
   --accent-clr-1: hsl(0 100% 71%);
   --accent-clr-2: hsl(0 85.6% 59.2%);
   --accent-clr-3: hsl(0 65.4% 47.6%);
+  --accent-clr-submit: hsl(0 46.2% 30%);
   --extra-clr-1: hsl(288 75.1% 63.7%);
   --extra-clr-2: hsl(288 56.3% 51.6%);
   --extra-clr-3: hsl(288 54.5% 39.6%);
@@ -41,34 +42,31 @@
   --shadow-strength: 25%;
   --inner-shadow-highlight: inset 0 -0.5px 0 0 #fff1, inset 0 0.5px 0 0 #0007;
 
-  --shadow-1:
-    0 -1px 2px 0 hsl(var(--shadow-color) / calc(var(--shadow-strength) + 1%)),
+  --shadow-1: 0 -1px 2px 0 hsl(var(--shadow-color) /
+          calc(var(--shadow-strength) + 1%)),
     0 2px 1px -2px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 2%)),
     0 5px 5px -2px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 2%)),
-    0 10px 10px -2px
-      hsl(var(--shadow-color) / calc(var(--shadow-strength) + 3%)),
-    0 20px 20px -2px
-      hsl(var(--shadow-color) / calc(var(--shadow-strength) + 4%)),
-    0 40px 40px -2px
-      hsl(var(--shadow-color) / calc(var(--shadow-strength) + 6%));
-  --shadow-2:
-    0 -1px 2px 0 hsl(var(--shadow-color) / calc(var(--shadow-strength) + 2%)),
+    0 10px 10px -2px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 3%)),
+    0 20px 20px -2px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 4%)),
+    0 40px 40px -2px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 6%));
+  --shadow-2: 0 -1px 2px 0 hsl(var(--shadow-color) /
+          calc(var(--shadow-strength) + 2%)),
     0 3px 2px -2px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 3%)),
     0 7px 5px -2px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 3%)),
-    0 12px 10px -2px
-      hsl(var(--shadow-color) / calc(var(--shadow-strength) + 4%)),
-    0 22px 18px -2px
-      hsl(var(--shadow-color) / calc(var(--shadow-strength) + 5%)),
-    0 41px 33px -2px
-      hsl(var(--shadow-color) / calc(var(--shadow-strength) + 6%)),
-    0 100px 80px -2px
-      hsl(var(--shadow-color) / calc(var(--shadow-strength) + 7%));
-  --inner-shadow-1:
-    inset 0 2px 8px 0
+    0 12px 10px -2px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 4%)),
+    0 22px 18px -2px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 5%)),
+    0 41px 33px -2px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 6%)),
+    0 100px 80px -2px hsl(var(--shadow-color) /
+          calc(var(--shadow-strength) + 7%));
+  --shadow-3: 0 -1px 2px 0 hsl(var(--shadow-color) /
+          calc(var(--shadow-strength) + 2%)),
+    0 7px 5px -2px hsl(var(--shadow-color) / calc(var(--shadow-strength) - 3%)),
+    0 12px 8px -5px hsl(var(--shadow-color) / var(--shadow-strength)),
+    0 20px 15px -5px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 1%));
+  --inner-shadow-1: inset 0 2px 8px 0
       hsl(var(--shadow-color) / calc(var(--shadow-strength) + 9%)),
     var(--inner-shadow-highlight);
-  --inner-shadow-2:
-    inset 0 2px 14px 0
+  --inner-shadow-2: inset 0 2px 14px 0
       hsl(var(--shadow-color) / calc(var(--shadow-strength) + 9%)),
     var(--inner-shadow-highlight);
 
@@ -78,17 +76,6 @@
   --trs-out: 500ms cubic-bezier(0.5, 1, 0.89, 1);
   --trs-out-l: 900ms cubic-bezier(0.5, 1, 0.89, 1);
   --trs-out-l: 2800ms cubic-bezier(0.5, 1, 0.89, 1);
-}
-
-@style --shadow-strength {
-  syntax: <percentage>;
-  inherits: true;
-  initial-value: 1%;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-  }
 }
 
 /* Asterisks, Tags and pseudo-elements */

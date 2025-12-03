@@ -116,8 +116,53 @@ products.forEach((product, index) => {
   });
 });
 
-// Email input randomizer
+// Form handling
+const form = document.getElementById("form") as HTMLFormElement;
+const modal = document.getElementById("joke-modal") as HTMLDialogElement;
+const closeModalBtn = document.getElementById(
+  "close-modal"
+) as HTMLButtonElement;
 const emailInput = document.getElementById("email") as HTMLInputElement;
+const validationMessages = [
+  "This does not look like an email to me...",
+  "You seem to be bad at this, to be honest",
+  "We need to try something different here",
+  " ", // No message
+  "It should work... Just make sure to input a valid email",
+];
+let validationIndex = 0;
+let isHandlingInvalid = false;
+
+form?.addEventListener("submit", (e) => {
+  e.preventDefault();
+  if (emailInput.checkValidity()) {
+    modal.showModal();
+  }
+});
+
+emailInput?.addEventListener("invalid", (e) => {
+  if (isHandlingInvalid) return; // This check might seem redundant but it is NOT
+
+  e.preventDefault();
+
+  const message = validationMessages[validationIndex];
+  emailInput.setCustomValidity(message);
+
+  // Rotate validation messages
+  validationIndex = (validationIndex + 1) % validationMessages.length;
+
+  isHandlingInvalid = true;
+  setTimeout(() => {
+    emailInput.reportValidity();
+    isHandlingInvalid = false;
+  }, 0);
+});
+
+closeModalBtn?.addEventListener("click", () => {
+  modal.close();
+});
+
+// Email input randomizer
 let previousValue = "";
 
 function getRandomCharacter() {
@@ -128,6 +173,9 @@ function getRandomCharacter() {
 }
 
 emailInput?.addEventListener("input", () => {
+  // Reset validation message for input, otherwise the form is unsubmittable
+  emailInput.setCustomValidity("");
+
   const currentValue = emailInput.value;
 
   if (currentValue.length > previousValue.length) {
