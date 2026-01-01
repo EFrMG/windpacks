@@ -20,11 +20,11 @@ It includes many comical remarks regarding the fact that this fictitious company
     
     </details>
 
-- Randomized output at email input as a sort of prank.
+- Randomized output at email input as a sort of prank and custom validity messages, plus weirdly animated modal.
     <details>
       <summary>Video showcase (open)</summary>
     
-    https://github.com/user-attachments/assets/388073fb-d960-48c2-9ce0-74550d95c657
+    https://github.com/user-attachments/assets/70ff022d-5735-43e3-93b2-2f3b671c9b02
     
     </details>
 
