@@ -1,20 +1,20 @@
 import "./css/styles.css";
 
 // Inverse parallax: move background down (positive offset) when scrolling down and vice-versa
-let ticking: boolean = false;
+let isTicking = false;
 
 window.addEventListener("scroll", () => {
-  if (!ticking) {
+  if (!isTicking) {
     window.requestAnimationFrame(() => {
       const scrolled = window.scrollY;
 
       document.documentElement.style.setProperty(
         "--scroll-offset",
-        `${scrolled * -0.25}px`
+        `${scrolled * -0.25}px`,
       );
-      ticking = false;
+      isTicking = false;
     });
-    ticking = true;
+    isTicking = true;
   }
 });
 
@@ -22,20 +22,23 @@ window.addEventListener("scroll", () => {
 const videoObserver = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
-      const video = entry.target as HTMLVideoElement;
+      if (entry.target instanceof HTMLVideoElement) {
+        const video = entry.target;
 
-      if (entry.isIntersecting) {
-        video.play();
-      } else {
-        video.pause();
-        video.currentTime = 0;
+        if (entry.isIntersecting) {
+          video.play();
+        } else {
+          video.pause();
+          video.currentTime = 0;
+        }
       }
     });
   },
-  { threshold: 0.01, rootMargin: "150px" }
+  { threshold: 0.01, rootMargin: "150px" },
 );
 
-videoObserver.observe(document.getElementById("video") as HTMLVideoElement);
+const videoEl = document.querySelector<HTMLVideoElement>("#video");
+if (videoEl) videoObserver.observe(videoEl);
 
 // Particle dissolve effect on product hover
 const products = document.querySelectorAll(".product");
@@ -52,57 +55,45 @@ products.forEach((product, index) => {
       timeoutMap.delete(product);
     }
 
-    const priceElement = product.querySelector(
-      ".price span"
-    ) as HTMLSpanElement;
+    const priceElement = product.querySelector<HTMLSpanElement>(".price span");
 
     // Add data attribute to target specific filter
     priceElement?.setAttribute("data-filter", index.toString());
     priceElement?.classList.add("dissolve-active");
 
     // Trigger forward animations for THIS card's filter (using index)
-    const turbulenceForward = document.getElementById(
-      `turbulence-forward-${index}`
-    ) as unknown as SVGAnimateElement;
-    const displacementForward = document.getElementById(
-      `displacement-forward-${index}`
-    ) as unknown as SVGAnimateElement;
-    const blurForward = document.getElementById(
-      `blur-forward-${index}`
-    ) as unknown as SVGAnimateElement;
-    const opacityForward = document.getElementById(
-      `opacity-forward-${index}`
-    ) as unknown as SVGAnimateElement;
+    const animateIds: string[] = [
+      "turbulence-forward",
+      "displacement-forward",
+      "blur-forward",
+      "opacity-forward",
+    ];
 
-    turbulenceForward?.beginElement();
-    displacementForward?.beginElement();
-    blurForward?.beginElement();
-    opacityForward?.beginElement();
+    animateIds.forEach((id) => {
+      const animateEl = document.querySelector<SVGAnimateElement>(
+        `#${id}-${index}`,
+      );
+      animateEl?.beginElement();
+    });
   });
 
   product.addEventListener("mouseleave", () => {
-    const priceElement = product.querySelector(
-      ".price span"
-    ) as HTMLSpanElement;
+    const priceElement = product.querySelector<HTMLSpanElement>(".price span");
 
     // Trigger reverse animations for THIS card's filter (using index)
-    const turbulenceReverse = document.getElementById(
-      `turbulence-reverse-${index}`
-    ) as unknown as SVGAnimateElement;
-    const displacementReverse = document.getElementById(
-      `displacement-reverse-${index}`
-    ) as unknown as SVGAnimateElement;
-    const blurReverse = document.getElementById(
-      `blur-reverse-${index}`
-    ) as unknown as SVGAnimateElement;
-    const opacityReverse = document.getElementById(
-      `opacity-reverse-${index}`
-    ) as unknown as SVGAnimateElement;
+    const animateIds: string[] = [
+      "turbulence-reverse",
+      "displacement-reverse",
+      "blur-reverse",
+      "opacity-reverse",
+    ];
 
-    turbulenceReverse?.beginElement();
-    displacementReverse?.beginElement();
-    blurReverse?.beginElement();
-    opacityReverse?.beginElement();
+    animateIds.forEach((id) => {
+      const animateEl = document.querySelector<SVGAnimateElement>(
+        `#${id}-${index}`,
+      );
+      animateEl?.beginElement();
+    });
 
     // Remove filter after animation completes
     const timeoutId = window.setTimeout(() => {
@@ -117,13 +108,11 @@ products.forEach((product, index) => {
 });
 
 // Form handling
-const form = document.getElementById("form") as HTMLFormElement;
-const modal = document.getElementById("joke-modal") as HTMLDialogElement;
-const closeModalBtn = document.getElementById(
-  "close-modal"
-) as HTMLButtonElement;
-const emailInput = document.getElementById("email") as HTMLInputElement;
-const validationMessages = [
+const form = document.querySelector<HTMLFormElement>("#form");
+const modal = document.querySelector<HTMLDialogElement>("#joke-modal");
+const closeModalBtn = document.querySelector<HTMLButtonElement>("#close-modal");
+const emailInput = document.querySelector<HTMLInputElement>("#email");
+const validationMessages: string[] = [
   "This does not look like an email to me...",
   "You seem to be bad at this, to be honest",
   "We need to try something different here",
@@ -135,8 +124,8 @@ let isHandlingInvalid = false;
 
 form?.addEventListener("submit", (e) => {
   e.preventDefault();
-  if (emailInput.checkValidity()) {
-    modal.showModal();
+  if (emailInput?.checkValidity()) {
+    modal?.showModal();
   }
 });
 
@@ -145,7 +134,7 @@ emailInput?.addEventListener("invalid", (e) => {
 
   e.preventDefault();
 
-  const message = validationMessages[validationIndex];
+  const message: string = validationMessages[validationIndex];
   emailInput.setCustomValidity(message);
 
   // Rotate validation messages
@@ -159,14 +148,14 @@ emailInput?.addEventListener("invalid", (e) => {
 });
 
 closeModalBtn?.addEventListener("click", () => {
-  modal.close();
+  modal?.close();
 });
 
 // Email input randomizer
-let previousValue = "";
+let previousValue: string = "";
 
-function getRandomCharacter() {
-  const chars =
+function getRandomCharacter(): string {
+  const chars: string =
     "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
   return chars[Math.floor(Math.random() * chars.length)];
@@ -176,15 +165,15 @@ emailInput?.addEventListener("input", () => {
   // Reset validation message for input, otherwise the form is unsubmittable
   emailInput.setCustomValidity("");
 
-  const currentValue = emailInput.value;
+  const currentValue: string = emailInput.value;
 
   if (currentValue.length > previousValue.length) {
     // User adds a character
-    const lastChar = currentValue[currentValue.length - 1];
+    const lastChar: string = currentValue[currentValue.length - 1];
 
     // Replace with random character if it's not an @ or .
     if (lastChar !== "@" && lastChar !== ".") {
-      const newValue = currentValue.slice(0, -1) + getRandomCharacter();
+      const newValue: string = currentValue.slice(0, -1) + getRandomCharacter();
       emailInput.value = newValue;
       previousValue = newValue;
     } else {

@@ -8,12 +8,14 @@ html {
 
   --scroll-offset: 0px;
 
-  background: radial-gradient(var(--s) at 100% var(--_g)) 0 var(--scroll-offset),
+  background:
+    radial-gradient(var(--s) at 100% var(--_g)) 0 var(--scroll-offset),
     radial-gradient(calc(var(--s) / 4) at 50% calc(100% / 3), var(--_c))
       var(--s) calc(var(--scroll-offset)),
     radial-gradient(var(--s) at 0% var(--_g)) 0
       calc(3 * var(--s) + var(--scroll-offset)) var(--c2);
-  background-size: calc(2 * var(--s)) calc(9 * var(--s) / 4),
+  background-size:
+    calc(2 * var(--s)) calc(9 * var(--s) / 4),
     calc(2 * var(--s)) calc(3 * var(--s) / 4);
   background-attachment: fixed;
 }
@@ -180,6 +182,18 @@ section h2 {
   animation-delay: 3300ms;
 }
 
+.windpack-span {
+  position: relative;
+  color: var(--bkg-clr);
+
+  & span {
+    position: absolute;
+    inset: -0.45lh 0 auto auto;
+    rotate: -12deg;
+    opacity: 0.77;
+  }
+}
+
 /* Features Grid */
 .features {
   display: grid;
@@ -310,7 +324,7 @@ section h2 {
 }
 
 .product:hover .buy-now {
-  opacity: 0.46;
+  opacity: 0.5;
 }
 
 .price-small {
@@ -490,7 +504,9 @@ section h2 {
   border-radius: var(--border-radius);
   background-color: transparent;
   color: var(--accent-clr-submit);
-  transition: background-color var(--trs-m), color var(--trs-m);
+  transition:
+    background-color var(--trs-m),
+    color var(--trs-m);
 
   &:focus {
     outline: none;
