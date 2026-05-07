@@ -47,7 +47,7 @@ main h1 {
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  gap: var(--spacing-m);
+  gap: 0.5rem;
   max-width: 1250px;
   margin-inline: auto;
   padding: var(--spacing-s) var(--spacing-m);
@@ -104,7 +104,7 @@ main h1 {
 
 #nav-bar ul {
   display: flex;
-  gap: var(--spacing-m);
+  gap: var(--spacing-s);
   align-items: center;
   user-select: none;
 }
@@ -499,7 +499,7 @@ section h2 {
 /* This would be the legitimate submit button */
 #glitch-submit {
   padding: 0.575rem 1.5rem;
-  font-size: var(--fz-ms);
+  font-size: var(--fz-m);
   border: 2px dashed var(--accent-clr-3);
   border-radius: var(--border-radius);
   background-color: transparent;
@@ -684,7 +684,7 @@ section h2 {
   }
 
   #nav-bar ul {
-    gap: 0;
+    gap: 0.5rem;
   }
 
   .moving-logo-left,
@@ -727,6 +727,16 @@ section h2 {
   #header {
     flex-direction: column;
     text-align: center;
+    gap: unset;
+  }
+
+  .button-group {
+    & a {
+      order: 1;
+    }
+    & button {
+      order: 0;
+    }
   }
 }
 
