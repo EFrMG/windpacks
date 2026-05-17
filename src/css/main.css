@@ -730,6 +730,14 @@ section h2 {
     gap: unset;
   }
 
+  .moving-logo-wrapper {
+    display: none;
+  }
+
+  #nav-bar {
+    margin-block: 0.5rem;
+  }
+
   .button-group {
     & a {
       order: 1;
